@@ -2,3 +2,5 @@ rootProject.name = 'cerberus'
 
 include 'cerberus-core'
 
+include 'cerberus-executors'
+

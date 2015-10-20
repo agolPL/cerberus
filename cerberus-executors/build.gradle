@@ -1,0 +1,6 @@
+dependencies {
+    compile project(':cerberus-core')
+    compile 'org.springframework:spring-jdbc:4.2.2.RELEASE'
+
+    testCompile 'com.h2database:h2:1.4.190'
+}
