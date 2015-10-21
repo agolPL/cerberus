@@ -4,3 +4,5 @@ include 'cerberus-core'
 
 include 'cerberus-executors'
 
+include 'cerberus-service'
+

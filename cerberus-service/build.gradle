@@ -1,0 +1,22 @@
+buildscript {
+    dependencies {
+        classpath('org.springframework.boot:spring-boot-gradle-plugin:1.2.6.RELEASE')
+    }
+    repositories {
+        mavenLocal()
+        jcenter()
+    }
+}
+
+apply plugin: 'spring-boot'
+
+dependencies {
+
+    compile project(':cerberus-core')
+    compile 'org.springframework.boot:spring-boot-starter'
+    compile 'org.springframework.boot:spring-boot-starter-actuator'
+    compile 'org.springframework.boot:spring-boot-starter-undertow'
+    compile 'org.springframework:spring-webmvc'
+
+    testCompile 'com.h2database:h2:1.4.190'
+}
