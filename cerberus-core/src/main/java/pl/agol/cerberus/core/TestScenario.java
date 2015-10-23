@@ -8,7 +8,7 @@ public class TestScenario {
     private String description;
     private boolean enable;
     private String setupScript;
-    private String testScript;
+    private String scenarioScript;
     private String cleanupScript;
     private List<Expectation> exceptions;
 
@@ -44,12 +44,12 @@ public class TestScenario {
         this.setupScript = setupScript;
     }
 
-    public String getTestScript() {
-        return testScript;
+    public String getScenarioScript() {
+        return scenarioScript;
     }
 
-    public void setTestScript(String testScript) {
-        this.testScript = testScript;
+    public void setScenarioScript(String scenarioScript) {
+        this.scenarioScript = scenarioScript;
     }
 
     public String getCleanupScript() {

@@ -2,40 +2,53 @@ package pl.agol.cerberus.core;
 
 public class TestExecutor {
 
+    private static final String TEST_OK_MESSAGE = "ok";
+
     private final TestScenario testScenario;
     private final ScriptExecutor setupScriptExecutor;
-    private final ScriptExecutor testExecutor;
+    private final ScriptExecutor scenarioExecutor;
     private final ScriptExecutor cleanupScriptExecutor;
+    private final boolean goldenMasterMode;
 
     public TestExecutor(TestScenario testScenario,
                         ScriptExecutor setupScriptExecutor,
-                        ScriptExecutor testExecutor,
-                        ScriptExecutor cleanupScriptExecutor) {
+                        ScriptExecutor scenarioExecutor,
+                        ScriptExecutor cleanupScriptExecutor,
+                        boolean goldenMasterMode) {
 
         this.testScenario = testScenario;
         this.setupScriptExecutor = setupScriptExecutor;
-        this.testExecutor = testExecutor;
+        this.scenarioExecutor = scenarioExecutor;
         this.cleanupScriptExecutor = cleanupScriptExecutor;
+        this.goldenMasterMode = goldenMasterMode;
     }
 
-    public boolean execute() {
+    public TestResult execute() {
 
         setupScriptExecutor.execute(testScenario.getSetupScript());
-        Object testResult = testExecutor.execute(testScenario.getTestScript());
+        Object scenarioResult = scenarioExecutor.execute(testScenario.getScenarioScript());
 
-        boolean assertionResult = new AssertionExecutor(testResult)
-                .checkWithExpectations(testScenario.getExceptions());
+        Object testResult = executeTest(scenarioResult);
 
         cleanupScriptExecutor.execute(testScenario.getCleanupScript());
-        return assertionResult;
+        return new TestResult(TEST_OK_MESSAGE, testResult);
+    }
+
+    private Object executeTest(Object scenarioResult) {
+        if (!goldenMasterMode) {
+            return new AssertionExecutor(scenarioResult)
+                    .checkWithExpectations(testScenario.getExceptions());
+        }
+        return scenarioResult;
     }
 
     public static class TestExecutorBuilder {
 
         private TestScenario testScenario;
         private ScriptExecutor setupScriptExecutor;
-        private ScriptExecutor testExecutor;
+        private ScriptExecutor scenarioExecutor;
         private ScriptExecutor cleanupScriptExecutor;
+        private boolean goldenMasterMode;
 
         public void testScenario(TestScenario testScenario) {
             this.testScenario = testScenario;
@@ -45,18 +58,21 @@ public class TestExecutor {
             this.setupScriptExecutor = setupScriptExecutor;
         }
 
-        public void testExecutor(ScriptExecutor testExecutor) {
-            this.testExecutor = testExecutor;
+        public void scenarioExecutor(ScriptExecutor scenarioExecutor) {
+            this.scenarioExecutor = scenarioExecutor;
         }
-
 
         public void cleanupScriptExecutor(ScriptExecutor cleanupScriptExecutor) {
             this.cleanupScriptExecutor = cleanupScriptExecutor;
         }
 
+        public void goldenMasterMode(boolean goldenMasterMode) {
+            this.goldenMasterMode = goldenMasterMode;
+        }
+
         public TestExecutor build() {
             return new TestExecutor(
-                    testScenario, setupScriptExecutor, testExecutor, cleanupScriptExecutor);
+                    testScenario, setupScriptExecutor, scenarioExecutor, cleanupScriptExecutor, goldenMasterMode);
         }
     }
 }
