@@ -50,24 +50,29 @@ public class TestExecutor {
         private ScriptExecutor cleanupScriptExecutor;
         private boolean goldenMasterMode;
 
-        public void testScenario(TestScenario testScenario) {
+        public TestExecutorBuilder testScenario(TestScenario testScenario) {
             this.testScenario = testScenario;
+            return this;
         }
 
-        public void setupScriptExecutor(ScriptExecutor setupScriptExecutor) {
+        public TestExecutorBuilder setupScriptExecutor(ScriptExecutor setupScriptExecutor) {
             this.setupScriptExecutor = setupScriptExecutor;
+            return this;
         }
 
-        public void scenarioExecutor(ScriptExecutor scenarioExecutor) {
+        public TestExecutorBuilder scenarioExecutor(ScriptExecutor scenarioExecutor) {
             this.scenarioExecutor = scenarioExecutor;
+            return this;
         }
 
-        public void cleanupScriptExecutor(ScriptExecutor cleanupScriptExecutor) {
+        public TestExecutorBuilder cleanupScriptExecutor(ScriptExecutor cleanupScriptExecutor) {
             this.cleanupScriptExecutor = cleanupScriptExecutor;
+            return this;
         }
 
-        public void goldenMasterMode(boolean goldenMasterMode) {
+        public TestExecutorBuilder goldenMasterMode(boolean goldenMasterMode) {
             this.goldenMasterMode = goldenMasterMode;
+            return this;
         }
 
         public TestExecutor build() {
