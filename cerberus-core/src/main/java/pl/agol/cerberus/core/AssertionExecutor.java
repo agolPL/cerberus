@@ -1,6 +1,7 @@
 package pl.agol.cerberus.core;
 
 import org.apache.commons.jxpath.JXPathContext;
+import org.apache.commons.jxpath.JXPathNotFoundException;
 
 import java.util.List;
 import java.util.Objects;
@@ -24,7 +25,11 @@ public class AssertionExecutor {
     }
 
     private boolean compareValues(Expectation expectation) {
-        Object expectedValue = jxPathContext.getValue(expectation.getPath());
-        return Objects.equals(expectedValue, expectation.getValue());
+        try {
+            Object expectedValue = jxPathContext.getValue(expectation.getPath());
+            return Objects.equals(expectedValue, expectation.getValue());
+        } catch (JXPathNotFoundException e) {
+            return false;
+        }
     }
 }
