@@ -16,7 +16,11 @@ dependencies {
     compile 'org.springframework.boot:spring-boot-starter'
     compile 'org.springframework.boot:spring-boot-starter-actuator'
     compile 'org.springframework.boot:spring-boot-starter-undertow'
+    compile 'org.springframework.boot:spring-boot-starter-jdbc'
     compile 'org.springframework:spring-webmvc'
+    compile 'org.liquibase:liquibase-core:3.3.0'
+    compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.4.6'
 
-    testCompile 'com.h2database:h2:1.4.190'
+    runtime 'org.postgresql:postgresql:9.2-1004-jdbc41'
+    runtime 'com.h2database:h2:1.4.190'
 }

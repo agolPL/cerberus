@@ -1,0 +1,31 @@
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.3.xsd">
+
+    <include relativeToChangelogFile="true" file="changelog-master.xml"/>
+
+    <changeSet id="test-data" author="agolawski" context="test">
+
+        <sql>
+            INSERT INTO test_scenario(number, name, description, enable, setup_script, scenario_script, cleanup_script, test_scenario_executor_info_id) VALUES
+            (1, 'first-senario', 'this is first scenario', true, 'insert 1', 'some test 1', 'delete 1', 1),
+            (2, 'second-senario', 'this is second scenario', true, 'insert 2', 'some test 2', 'delete 2', 1);
+        </sql>
+
+        <sql>
+            INSERT INTO expectation(path, value, test_scenario_number) VALUES
+            ('name', 'andi', 1),
+            ('lastName', 'golawski', 1),
+            ('name', 'adzia', 2),
+            ('lastName', 'golawski', 2);
+        </sql>
+
+        <sql>
+            INSERT INTO test_scenario_executor_info(id, setup_script_executor_factory_class, scenario_script_executor_factory_class, cleanup_script_executor_factory_class) VALUES
+            (1, 'pl.agol.cerberus.example.SimpleScriptExecutorFactory', 'pl.agol.cerberus.example.SimpleScriptExecutorFactory', 'pl.agol.cerberus.example.SimpleScriptExecutorFactory');
+        </sql>
+
+    </changeSet>
+
+</databaseChangeLog>

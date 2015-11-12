@@ -52,4 +52,20 @@ public class TestScenarioExecutor {
         this.cleanupScriptExecutorFactoryClass = cleanupScriptExecutorFactoryClass;
         return this;
     }
+
+    public TestScenario getTestScenario() {
+        return testScenario;
+    }
+
+    public Class<ScriptExecutorFactory> getSetupScriptExecutorFactoryClass() {
+        return setupScriptExecutorFactoryClass;
+    }
+
+    public Class<ScriptExecutorFactory> getScenarioScriptExecutorFactoryClass() {
+        return scenarioScriptExecutorFactoryClass;
+    }
+
+    public Class<ScriptExecutorFactory> getCleanupScriptExecutorFactoryClass() {
+        return cleanupScriptExecutorFactoryClass;
+    }
 }

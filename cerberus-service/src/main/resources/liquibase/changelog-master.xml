@@ -1,0 +1,35 @@
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.3.xsd">
+
+    <changeSet id="test_scenario" author="agolawski">
+
+        <createTable tableName="test_scenario">
+            <column name="number" type="bigint"/>
+            <column name="name" type="varchar(200)"/>
+            <column name="description" type="text"/>
+            <column name="enable" type="boolean"/>
+            <column name="setup_script" type="text"/>
+            <column name="scenario_script" type="text"/>
+            <column name="cleanup_script" type="text"/>
+            <column name="test_scenario_executor_info_id" type="bigint"/>
+        </createTable>
+
+        <createTable tableName="expectation">
+            <column name="path" type="varchar(1000)"/>
+            <column name="value" type="text"/>
+            <column name="test_scenario_number" type="bigint"/>
+        </createTable>
+
+        <createTable tableName="test_scenario_executor_info">
+            <column name="id" type="bigint"/>
+            <column name="description" type="text"/>
+            <column name="setup_script_executor_factory_class" type="varchar(1000)"/>
+            <column name="scenario_script_executor_factory_class" type="varchar(1000)"/>
+            <column name="cleanup_script_executor_factory_class" type="varchar(1000)"/>
+        </createTable>
+
+    </changeSet>
+
+</databaseChangeLog>
