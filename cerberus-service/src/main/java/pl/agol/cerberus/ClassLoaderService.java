@@ -18,7 +18,11 @@ public class ClassLoaderService {
     private void createTestScenarioExecutorFactoryClassLoader() throws MalformedURLException {
         String externalLibPath = System.getProperty(EXTERNAL_LIB_PATH_SYSTEM_PROPERTY_NAME);
         URL[] classLoaderUrls = new URL[]{new URL("file:" + externalLibPath)};
-        scenarioExecutorFactoryClassLoader = new URLClassLoader(classLoaderUrls);
+        scenarioExecutorFactoryClassLoader = new URLClassLoader(classLoaderUrls, getParentClassLoader());
+    }
+
+    private ClassLoader getParentClassLoader() {
+        return this.getClass().getClassLoader();
     }
 
     public <T> Class<T> loadClass(String className, Class<T> type) throws ClassNotFoundException {
